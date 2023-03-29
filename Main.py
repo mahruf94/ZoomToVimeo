@@ -35,7 +35,8 @@ class ZoomToVimeo():
     os.system('cls' if os.name == 'nt' else 'clear')
 
     # CONNECT TO VIMEO API
-    vimeo_connect()
+    # Mahruf commented this out as he does not need to upload to vimeo
+    #vimeo_connect()
 
     ########### ADD PATH TO DOWNLOAD FOLDER HERE ###########
     DOWNLOAD_DIRECTORY = r'PATH/TO/FOLDER'
@@ -52,6 +53,7 @@ class ZoomToVimeo():
     RECORDING_START_MONTH = 1
     RECORDING_START_DAY = 1
     RECORDING_END_DATE = date.today()
+    # RECORDING_END_DATE = date(2021, 1, 30)
     SINGLES_PATH = os.sep.join([os.path.dirname(os.path.realpath(__file__)), "Single_users.xlsx"])
 
     load_dotenv()
@@ -130,7 +132,7 @@ class ZoomToVimeo():
                     rec_files = get_recordings_files(self,recording)
                     # LOOP THROUGH FILES
                     for file_type, file_extension, download_url, recording_type, recording_id, recording_name, recording_date in rec_files: 
-                        filename = recording_name + f".{file_extension.swapcase()}"
+                        filename = recording_name + "-" + recording_date + f".{file_extension.swapcase()}"
                         print("rec_files")
                         if recording_type != 'incomplete':
                             # REFRESH ZOOM TOKEN IF EXPIRED
@@ -159,10 +161,10 @@ class ZoomToVimeo():
                                 log.flush()
                             
                             # UPLOAD FILE TO VIMEO
-                            if recording_id in self.COMPLETED_UPLOAD_IDS:        
-                                print("==> Skipping already uploaded recording: ", recording_id)
-                                continue   
-                            all_upload(self, em, filename, vimeo_folder_id, recording_id)
+                            #if recording_id in self.COMPLETED_UPLOAD_IDS:        
+                                #print("==> Skipping already uploaded recording: ", recording_id)
+                                #continue   
+                            #all_upload(self, em, filename, vimeo_folder_id, recording_id)
 
                         else:
                             pass
@@ -231,7 +233,7 @@ class ZoomToVimeo():
                     rec_files = get_recordings_files(self, recording)
                     # LOOP THROUGH FILES
                     for file_type, file_extension, download_url, recording_type, recording_id, recording_name, recording_date in rec_files: 
-                        filename = recording_name + f".{file_extension.swapcase()}"
+                        filename = recording_name + "-" + recording_date + f".{file_extension.swapcase()}"
                         if recording_type != 'incomplete':
                             # REFRESH ZOOM TOKEN IF EXPIRED
                             if datetime.now() >= self.token_expiry:
@@ -258,10 +260,10 @@ class ZoomToVimeo():
                                 log.write('\n')
                                 log.flush()
                             # UPLOAD FILE TO VIMEO   
-                            if recording_id in self.COMPLETED_UPLOAD_IDS:        
-                                print("==> Skipping already uploaded recording: ", recording_id)
-                                continue          
-                            single_upload(self, em, filename, vimeo_folder_id, recording_id)
+                            #if recording_id in self.COMPLETED_UPLOAD_IDS:        
+                                #print("==> Skipping already uploaded recording: ", recording_id)
+                                #continue          
+                            #single_upload(self, em, filename, vimeo_folder_id, recording_id)
                         else:
                             pass
         print("\n*** All done! ***")
