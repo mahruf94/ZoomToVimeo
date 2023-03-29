@@ -141,14 +141,14 @@ def get_recordings_files(self,rec):
 
         #########################
         # TO FILTER SPECIFIC TYPE OF FILE UNCOMMENT NEXT 3 LINES, ADD FILE TYPE BETWEEN QUOTES AND COMMENT THE 2 LINES UNDER DEFINE DOWNLOAD URL
-        # if recording_type == 'shared_screen_with_speaker_view':
-        #     download_url = download['download_url'] + "?access_token=" + self.zoom_token
-        #     files_info.append((file_type, file_extension, download_url, recording_type, recording_id, recording_name, recording_date))
+        if recording_type == 'shared_screen_with_speaker_view':
+            download_url = download['download_url'] + "?access_token=" + self.zoom_token
+            files_info.append((file_type, file_extension, download_url, recording_type, recording_id, recording_name, recording_date))
         #########################    
 
         # DEFINE DOWNLOAD URL
-        download_url = download['download_url'] + "?access_token=" + self.zoom_token
-        files_info.append((file_type, file_extension, download_url, recording_type, recording_id, recording_name, recording_date))
+        #download_url = download['download_url'] + "?access_token=" + self.zoom_token
+        #files_info.append((file_type, file_extension, download_url, recording_type, recording_id, recording_name, recording_date))
         # else:
         #     pass
     return files_info
